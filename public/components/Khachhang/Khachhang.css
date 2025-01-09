@@ -1,0 +1,103 @@
+form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Chia làm 3 cột */
+  gap: 7px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+label{
+  font-weight: bold;
+}
+input {
+  padding: 5px;
+  width: 250px;
+}
+select {
+  padding: 5px;
+  width:250px;
+}
+
+
+/*Slide-bar*/
+.flex {
+  display: flex;
+}
+.sidebar {
+  width: 250px;
+  height: 500vh;
+  background-color: #4b5563;
+  padding: 20px;
+  position: relative;
+  transition: width 0.1s ease;
+}
+.sidebar.collapsed {
+  width: 60px;
+}
+.toggle-btn {
+  position: absolute;
+  top: 20px;
+  right: -15px;
+  width: 30px;
+  height: 30px;
+  border: 2px solid #6b7280;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+.sidebar.collapsed .toggle-btn {
+  transform: rotate(180deg);
+}
+.sidebar .header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.sidebar .header .icon {
+  font-size: 30px;
+  color: white;
+}
+.sidebar .header .title {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+  transition: opacity 0.1s ease;
+}
+.sidebar.collapsed .header .title {
+  opacity: 0;
+}
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.menu li:hover {
+  background-color: #6b7280;
+}
+.menu li a {
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.3s ease;
+}
+.sidebar.collapsed .menu li a {
+  display: none;
+}
+.menu li .menu-icon {
+  font-size: 18px;
+}

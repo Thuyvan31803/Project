@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sự kiện</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Sukien.css">
+</head>
+<body>
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="toggle-btn" id="toggle-btn">&#8592;</div>
+            <div class="header">
+                <i class="fas fa-user-circle icon"></i>
+                <span class="title">Admin</span>
+            </div>
+            <ul class="menu">
+                <li>
+                    <i class="fas fa-home menu-icon"></i>
+                    <a href="/admin">Trang chủ</a>
+                </li>
+                <li>
+                    <i class="fas fa-users menu-icon"></i>
+                    <a href="../Khachhang/Khachhang.html">Khách hàng</a>
+                </li>
+                <li>
+                    <i class="fas fa-concierge-bell menu-icon"></i>
+                    <a href="../Dichvu/Dichvu.html">Dịch vụ</a>
+                </li>
+                <li>
+                    <i class="fas fa-calendar-alt menu-icon"></i>
+                    <a href="../Sukien/Sukien.html">Sự kiện</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content" style="padding: 1.75rem; flex: 1; height: 100vh">
+    <h2 style="color:dodgerblue; text-align: center">DANH SÁCH SỰ KIỆN</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 200px">Sự kiện</th>
+                <th style="width: 180px">Số lượt đăng ký</th>
+            </tr>
+        </thead>
+        <tbody id="serviceList">
+            <tr>
+                <td>Sinh nhật</td>
+                <td id="sinhnhatCount">0</td>
+            </tr>
+            <tr>
+                <td>Đám cưới</td>
+                <td id="damcuoiCount">0</td>
+            </tr>
+            <tr>
+                <td>Sự kiện khai mạc</td>
+                <td id="sukienkhaimacCount">0</td>
+            </tr>
+            <tr>
+                <td>Tiệc theo chủ đề</td>
+                <td id="tiectheochudeCount">0</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+    </div>
+
+    <script>
+        //Slide-bar
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggle-btn');
+
+        toggleBtn.addEventListener('click', () => {
+            const isCollapsed = sidebar.classList.toggle('collapsed');
+            toggleBtn.innerHTML = isCollapsed ? '&#8594;' : '&#8592;';
+        });
+
+        // Cập nhật danh sách sự kiện
+        function updateServiceList() {
+            const sukienCounts = JSON.parse(localStorage.getItem("sukienCounts")) || {
+                "Sinh nhật": 0,
+                "Đám cưới": 0,
+                "Sự kiện khai mạc": 0,
+                "Tiệc theo chủ đề": 0,
+            };
+            let tableBody = document.getElementById("serviceList");
+            tableBody.innerHTML = "";
+            for (let sukien in sukienCounts) {
+                let row = `<tr>
+                    <td>${sukien}</td>
+                    <td>${sukienCounts[sukien]}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            }
+            document.getElementById("sinhnhatCount").textContent = sukienCounts["Sinh nhật"];
+            document.getElementById("damcuoiCount").textContent = sukienCounts["Đám cưới"];
+            document.getElementById("sukienkhaimacCount").textContent = sukienCounts["Sự kiện khai mạc"];
+            document.getElementById("tiectheochudeCount").textContent = sukienCounts["Tiệc theo chủ đề"];
+        }
+        // Gọi hàm khi trang tải
+        updateServiceList();
+        // Cập nhật khi trang tải
+        renderServiceList();
+    </script>
+</body>
+</html>

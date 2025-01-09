@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dịch vụ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Dichvu.css">
+</head>
+<body>
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="toggle-btn" id="toggle-btn">&#8592;</div>
+            <div class="header">
+                <i class="fas fa-user-circle icon"></i>
+                <span class="title">Admin</span>
+            </div>
+            <ul class="menu">
+                <li>
+                    <i class="fas fa-home menu-icon"></i>
+                    <a href="/admin">Trang chủ</a>
+                </li>
+                <li>
+                    <i class="fas fa-users menu-icon"></i>
+                    <a href="../Khachhang/Khachhang.html">Khách hàng</a>
+                </li>
+                <li>
+                    <i class="fas fa-concierge-bell menu-icon"></i>
+                    <a href="../Dichvu/Dichvu.html">Dịch vụ</a>
+                </li>
+                <li>
+                    <i class="fas fa-calendar-alt menu-icon"></i>
+                    <a href="../Sukien/Sukien.html">Sự kiện</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content" style="padding: 1.75rem; flex: 1; height: 100vh">
+    <h2 style="color:dodgerblue; text-align: center">DANH SÁCH DỊCH VỤ</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 190px">Dịch vụ</th>
+                <th style="width: 200px">Số lượt đăng ký</th>
+            </tr>
+        </thead>
+        <tbody id="serviceList">
+            <tr>
+                <td>Wedding Planning</td>
+                <td id="weddingPlanningCount">0</td>
+            </tr>
+            <tr>
+                <td>Destination Wedding</td>
+                <td id="destinationWeddingCount">0</td>
+            </tr>
+            <tr>
+                <td>Styling & Decoration</td>
+                <td id="stylingDecorationCount">0</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+    </div>
+
+    <script>
+        //Slide-bar
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggle-btn');
+
+        toggleBtn.addEventListener('click', () => {
+            const isCollapsed = sidebar.classList.toggle('collapsed');
+            toggleBtn.innerHTML = isCollapsed ? '&#8594;' : '&#8592;';
+        });
+
+        // Cập nhật danh sách dịch vụ
+        function updateServiceList() {
+            const dichvuCounts = JSON.parse(localStorage.getItem("dichvuCounts")) || {
+                "Wedding Planning": 0,
+                "Destination Wedding": 0,
+                "Styling & Decoration": 0,
+            };
+            let tableBody = document.getElementById("serviceList");
+            tableBody.innerHTML = "";
+
+            for (let dichvu in dichvuCounts) {
+                let row = `<tr>
+                    <td>${dichvu}</td>
+                    <td>${dichvuCounts[dichvu]}</td>
+                </tr>`;
+                tableBody.innerHTML += row;
+            }
+
+            document.getElementById("weddingPlanningCount").textContent = dichvuCounts["Wedding Planning"];
+            document.getElementById("destinationWeddingCount").textContent = dichvuCounts["Destination Wedding"];
+            document.getElementById("stylingDecorationCount").textContent = dichvuCounts["Styling & Decoration"];
+        }
+        // Gọi hàm khi trang tải
+        updateServiceList();
+        // Cập nhật khi trang tải
+        renderServiceList();
+    </script>
+</body>
+</html>

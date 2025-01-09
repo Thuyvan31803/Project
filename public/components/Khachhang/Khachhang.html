@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khách hàng</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="Khachhang.css">
+</head>
+<body>
+    <div class="flex">
+        <!-- Sidebar -->
+        <div class="sidebar" id="sidebar">
+            <div class="toggle-btn" id="toggle-btn">&#8592;</div>
+            <div class="header">
+                <i class="fas fa-user-circle icon"></i>
+                <span class="title">Admin</span>
+            </div>
+            <ul class="menu">
+                <li>
+                    <i class="fas fa-home menu-icon"></i>
+                    <a href="/admin">Trang chủ</a>
+                </li>
+                <li>
+                    <i class="fas fa-users menu-icon"></i>
+                    <a href="../Khachhang/Khachhang.html">Khách hàng</a>
+                </li>
+                <li>
+                    <i class="fas fa-concierge-bell menu-icon"></i>
+                    <a href="../Dichvu/Dichvu.html">Dịch vụ</a>
+                </li>
+                <li>
+                    <i class="fas fa-calendar-alt menu-icon"></i>
+                    <a href="../Dichvu/Dichvu.html">Sự kiện</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content" style="padding: 1.75rem; flex: 1; height: 500vh">
+            <h2 style="color:dodgerblue; text-align: center">DANH SÁCH KHÁCH HÀNG</h2>
+            <form>
+                <div class="form-group">
+                    <label for="">Mã KH</label>
+                    <input type="number" id="id">
+                </div>
+                <div class="form-group">
+                    <label for="">Họ KH</label>
+                    <input type="text" id="nameho">
+                </div>
+                <div class="form-group">
+                    <label for="">Tên</label>
+                    <input type="text" id="nameten">
+                </div>
+                <div class="form-group">
+                    <label for="">Giới tính</label>
+                    <select type="text" id="gtinh">
+                        <option> </option>
+                        <option>Nam</option>
+                        <option>Nữ</option>
+                        <option>Khác</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Địa chỉ</label>
+                    <input type="text" id="address">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="dateOfBirth">Ngày sinh</label>
+                    <input type="date" id="date">
+                </div>
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="text" id="email">
+                </div>
+                <div class="form-group">
+                    <label for="">Sđt</label>
+                    <input type="number" id="number">
+                </div>
+                <div class="form-group">
+                    <label for="">Số lượng khách</label>
+                    <input type="number" id="soluong">
+                </div>
+                <div class="form-group">
+                    <label for="">Ngân sách</label>
+                    <input type="number" id="ngansach">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="dateOfBirth">Ngày tổ chức</label>
+                    <input type="date" id="dateOfBirth">
+                </div>
+                <div class="form-group">
+                    <label for="dichvu" class="dichvu">Dịch vụ</label>
+                    <select multiple type="text" id="dichvu">
+                        <option> </option>
+                        <option value="Wedding Planning">Wedding Planning</option>
+                        <option value="Destination Wedding">Destination Wedding</option>
+                        <option value="Styling & Decoration">Styling & Decoration</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="sukien">Sự kiện</label>
+                    <select type="text" id="sukien">
+                        <option> </option>
+                        <option>Sinh nhật</option>
+                        <option>Đám cưới</option>
+                        <option>Sự kiện khai mạc</option>
+                        <option>Tiệc theo chủ đề</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Địa điểm</label>
+                    <input type="text" id="diadiem">
+                </div>
+                <div>
+                    <button type="button" onclick="add()">Thêm</button>
+                </div>
+              </form>
+              <table class="table table-striped table-bordered" id="render">
+                <thead>
+                  <tr>
+                      <th>Mã KH</th>
+                      <th>Họ KH</th>
+                      <th>Tên</th>
+                      <th>Giới tính</th>
+                      <th>Địa chỉ</th>
+                      <th>Ngày sinh</th>
+                      <th>Email</th>
+                      <th>Sđt</th>
+                      <th>Số lượng khách</th>
+                      <th>Ngân sách</th>
+                      <th>Ngày tổ chức</th>
+                      <th>Dịch vụ</th>
+                      <th>Sự kiện</th>
+                      <th>Địa điểm</th>
+                      <th>Chức năng</th>
+                  </tr>
+                  </tr>
+                </thead>  
+              </table>            
+        </div>
+    </div>
+
+    <script>
+        var data=[]
+        //Thêm dữ liệu
+        function add(){
+            event.preventDefault();
+            var item_id = document.getElementById("id").value
+            var item_nameho = document.getElementById("nameho").value
+            var item_nameten = document.getElementById("nameten").value
+            var item_gtinh = document.getElementById("gtinh").value
+            var item_address = document.getElementById("address").value
+            var item_date = document.getElementById("date").value
+            var item_email = document.getElementById("email").value
+            var item_number = document.getElementById("number").value
+            var item_soluong = document.getElementById("soluong").value
+            var item_ngansach = document.getElementById("ngansach").value
+            var item_dateOfBirth = document.getElementById("dateOfBirth").value
+            var dichvu_select = document.getElementById("dichvu");
+            var item_dichvu = Array.from(dichvu_select.selectedOptions).map(option => option.value).join(", ");
+            var item_sukien = document.getElementById("sukien").value
+            var item_diadiem = document.getElementById("diadiem").value
+
+            var item = {
+                MaKH: item_id,
+                HoKH: item_nameho,
+                Ten: item_nameten,
+                Gioitinh: item_gtinh,
+                Diachi: item_address,
+                Ngaysinh: item_date,
+                Email: item_email,
+                Sdt: item_number,
+                SoluongKhach: item_soluong,
+                Ngansach: item_ngansach,
+                Ngaytochuc: item_dateOfBirth,
+                Dichvu: item_dichvu,
+                Sukien: item_sukien,
+                Diadiem: item_diadiem
+            }
+            let index = data.findIndex((c) => c.MaKH==item.MaKH)
+            if(index>=0){
+                data.splice(index,1,item)
+            }else{
+                data.push(item)
+            }
+            localStorage.setItem('khachhangData', JSON.stringify(data));
+            render()
+            clear()
+            // Cập nhật lại các dữ liệu dịch vụ và sự kiện
+            updateDichvuSukien(item_dichvu, item_sukien);
+        }
+
+            // Lấy dữ liệu dịch vụ từ LocalStorage (dịch vụ)
+        function updateDichvuSukien(item_dichvu, item_sukien) {
+            const dichvuCounts = JSON.parse(localStorage.getItem("dichvuCounts")) || {
+                "Wedding Planning": 0,
+                "Destination Wedding": 0,
+                "Styling & Decoration": 0,
+            };
+            // Tăng số lượt đăng ký cho dịch vụ được chọn
+            dichvuCounts[item_dichvu] += 1;
+            // Lưu lại vào LocalStorage
+            localStorage.setItem("dichvuCounts", JSON.stringify(dichvuCounts));
+
+
+            // Lấy dữ liệu sự kiện từ LocalStorage(sự kiện)
+            const sukienCounts = JSON.parse(localStorage.getItem("sukienCounts")) || {
+                "Sinh nhật": 0,
+                "Đám cưới": 0,
+                "Sự kiện khai mạc": 0,
+                "Tiệc theo chủ đề": 0,
+            };
+            // Tăng số lượt đăng ký cho sự kiện được chọn
+            sukienCounts[item_sukien] += 1;
+            // Lưu lại vào LocalStorage
+            localStorage.setItem("sukienCounts", JSON.stringify(sukienCounts));
+        }
+        // Gọi hàm render khi trang được tải
+        window.onload = render;
+        //Đọc dữ liệu
+        function render(){
+            // Lấy dữ liệu từ localStorage
+            data = JSON.parse(localStorage.getItem('khachhangData')) || [];
+            table = `<tr>
+               <th>Mã KH</th>
+               <th>Họ KH</th>
+               <th>Tên</th>
+               <th>Giới tính</th>
+               <th>Địa chỉ</th>
+               <th>Ngày sinh</th>
+               <th>Email</th>
+               <th>Sđt</th>
+               <th>Số lượng Khách</th>
+               <th>Ngân sách</th>
+               <th>Ngày tổ chức</th>
+               <th>Dịch vụ</th>
+               <th>Sự kiện</th>
+               <th>Địa điểm</th>
+               <th>Chức năng</th>
+            </tr>`
+            for(let i=0; i<data.length; i++){
+                table += `<tr>
+               <td>${data[i].MaKH}</td>
+               <td>${data[i].HoKH}</td>
+               <td>${data[i].Ten}</td>
+               <td>${data[i].Gioitinh}</td>
+               <td>${data[i].Diachi}</td>
+               <td>${data[i].Ngaysinh}</td>
+               <td>${data[i].Email}</td>
+               <td>${data[i].Sdt}</td>
+               <td>${data[i].SoluongKhach}</td>
+               <td>${data[i].Ngansach}</td>
+               <td>${data[i].Ngaytochuc}</td>
+               <td>${data[i].Dichvu}</td>
+               <td>${data[i].Sukien}</td>
+               <td>${data[i].Diadiem}</td>
+               <td>
+                <button onClick="editItem(${data[i].MaKH})">Sửa</button>
+                <button onClick="deleteItem(${data[i].MaKH})">Xóa</button>
+               </td>
+            </tr>`
+            }
+            document.getElementById("render").innerHTML = table;
+            // Gắn sự kiện xóa cho các nút "Xóa" sau khi render
+            const deleteBtns = document.querySelectorAll('.deleteBtn');
+            deleteBtns.forEach(btn => {
+                btn.addEventListener('click', (event) => {
+                    const id = event.target.getAttribute('data-id');
+                    deleteItem(id);
+                });
+            });
+        }
+        //Làm sạch sau khi submit
+        function clear(){
+            document.getElementById("id").value="";
+            document.getElementById("nameho").value="";
+            document.getElementById("nameten").value="";
+            document.getElementById("gtinh").value="";
+            document.getElementById("address").value="";
+            document.getElementById("date").value="";
+            document.getElementById("email").value="";
+            document.getElementById("number").value="";
+            document.getElementById("soluong").value="";
+            document.getElementById("ngansach").value="";
+            document.getElementById("dateOfBirth").value="";
+            document.getElementById("dichvu").value="";
+            document.getElementById("sukien").value="";
+            document.getElementById("diadiem").value=""
+        }
+        //Xóa dữ liệu
+        function deleteItem(x){
+            for(let i=0; i<data.length; i++){
+                if(data[i].MaKH==x){
+                    let deletedServices = data[i].Dichvu.split(", ");
+                    let deletedSukiens = data[i].Sukien.split(", ");
+                    
+                    // Giảm số lượt đăng ký trong LocalStorage(dịch vụ)
+                    let dichvuCounts = JSON.parse(localStorage.getItem("dichvuCounts")) || {};
+                    deletedServices.forEach(dichvu => {
+                        if (dichvuCounts[dichvu] > 0) {
+                            dichvuCounts[dichvu] -= 1;
+                        }
+                    });
+                    localStorage.setItem("dichvuCounts", JSON.stringify(dichvuCounts));
+
+                    // Giảm số lượt đăng ký trong LocalStorage(sự kiện)
+                    let sukienCounts = JSON.parse(localStorage.getItem("sukienCounts")) || {};
+                    deletedSukiens.forEach(sukien => {
+                        if (sukienCounts[sukien] > 0) {
+                            sukienCounts[sukien] -= 1;
+                        }
+                    });
+                    localStorage.setItem("sukienCounts", JSON.stringify(sukienCounts));
+
+                    data.splice(i, 1);
+                    localStorage.setItem('khachhangData', JSON.stringify(data));
+                    render();
+                    break;
+                }
+            }
+        }
+        //Sửa dữ liệu
+        function editItem(x){
+            for(let i=0; i<data.length; i++){
+                if(data[i].MaKH==x){
+                    // Lấy dịch vụ hiện tại của khách hàng
+                    let currentServices = data[i].Dichvu.split(", ");
+                    let currentSukiens = data[i].Sukien.split(", ");
+
+                    // Hiển thị thông tin khách hàng để chỉnh sửa
+                    document.getElementById("id").value = data[i].MaKH;
+                    document.getElementById("nameho").value = data[i].HoKH;
+                    document.getElementById("nameten").value = data[i].Ten;
+                    document.getElementById("gtinh").value = data[i].Gioitinh;
+                    document.getElementById("address").value = data[i].Diachi;
+                    document.getElementById("date").value = data[i].Ngaysinh;
+                    document.getElementById("email").value = data[i].Email;
+                    document.getElementById("number").value = data[i].Sdt;
+                    document.getElementById("soluong").value = data[i].SoluongKhach;
+                    document.getElementById("ngansach").value = data[i].Ngansach;
+                    document.getElementById("dateOfBirth").value = data[i].Ngaytochuc;
+                    document.getElementById("dichvu").value = data[i].Dichvu;
+                    document.getElementById("sukien").value = data[i].Sukien;
+                    document.getElementById("diadiem").value = data[i].Diadiem;
+
+                    // Xóa khách hàng cũ khỏi danh sách(dịch vụ)
+                    let dichvuCounts = JSON.parse(localStorage.getItem("dichvuCounts")) || {};
+                    currentServices.forEach(dichvu => {
+                        if (dichvuCounts[dichvu] > 0) {
+                           dichvuCounts[dichvu] -= 1;
+                        }
+                    });
+                    // Xóa khách hàng cũ khỏi danh sách(sự kiện)
+                    let sukienCounts = JSON.parse(localStorage.getItem("sukienCounts")) || {};
+                    currentSukiens.forEach(sukien => {
+                        if (sukienCounts[sukien] > 0) {
+                           sukienCounts[sukien] -= 1;
+                        }
+                    });
+                    localStorage.setItem("dichvuCounts", JSON.stringify(dichvuCounts));
+                    localStorage.setItem("sukienCounts", JSON.stringify(sukienCounts));
+                    data.splice(i, 1); // Xóa khách hàng cũ để thêm lại sau
+                    break;
+                }
+            }
+        }
+        
+        //Slide-bar
+        const sidebar = document.getElementById('sidebar');
+        const toggleBtn = document.getElementById('toggle-btn');
+
+        toggleBtn.addEventListener('click', () => {
+            const isCollapsed = sidebar.classList.toggle('collapsed');
+            toggleBtn.innerHTML = isCollapsed ? '&#8594;' : '&#8592;';
+        });
+    </script>
+</body>
+</html>
