@@ -1,0 +1,194 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    background: #ffe3da;
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    outline: none;
+    border: none;
+    transition: 0.2s linear;
+    text-transform: capitalize;
+}
+
+/*Thanh menu*/
+nav{
+    background: #ffe3da;
+}
+  div.menu {
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    @media (min-width: 640px) {
+      padding: 1.5rem; 
+    }
+    @media (min-width: 1024px) {
+      padding: 2rem; 
+  }
+  }
+  div.menu1{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 2rem;
+  }
+  div.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  div.logo a{
+    color: #ff8e6f;
+    font-size: 2.5rem;
+  }
+  div.menu-bar{
+    display: none;
+    margin: auto;
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+  div.menu-bar1{
+    margin-left: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  div.menu-bar1 a{
+    color:#ff8e6f;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+  }
+  div.menu-bar1 a:hover{
+    background-color: #ffe3da;
+    color:#ff8e6f;
+  }
+  div.bar{
+    display: flex;
+    align-items: center;
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+  div.bar button{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    color:#ff8e6f;
+    font-size: 2rem;
+  }
+  div.bar button:hover, :focus{
+    color: #ff8e6f;
+    outline: none;
+    box-shadow: inset 0 0 0 2px white;
+  }
+  div.menu2{
+    @media (min-width: 768px) {
+      display: none;
+    }
+  }
+  div.menu-bar2{
+    padding-left: 0.5rem; 
+    padding-top: 0.5rem;
+    padding-bottom: 0.75rem;
+    margin-top: 0.25rem;
+    @media (min-width: 640px) {
+      padding-left: 0.75rem;
+    }
+  }
+  div.menu-bar2 a{
+    color:#ff8e6f;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    display: block;
+    font-size: 1.5rem;
+  }
+  div.menu-bar2 a:hover{
+    background-color: #ffc8b5;
+    color:#ff8e6f;
+  }
+  
+/*Liên hệ*/
+.header {
+    padding-bottom: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    text-align: center;
+}
+.header h1{
+    font-size: 2.3rem;
+    color: black;
+    text-transform: uppercase;
+    font-family: cursive;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 7px;
+    text-align: center;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+input {
+    padding: 5px;
+    width: 250px;
+}
+
+/*Footer*/
+.footer {
+    background-color: #ffd0c1;
+    padding: 40px 40px;
+    color: #333;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+  }
+  
+  .footer-column {
+    width: 85%;
+    margin: 0 auto;
+    margin-left: 100px;
+  }
+  
+.footer-column h3 {
+    font-weight: bold;
+    color: #ff8e6f;
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+}
+  
+  .footer-column p, .footer-column ul {
+    margin: 5px 0;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    color: #666;
+  }
+  
+  .footer-column ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-column ul li {
+    margin-bottom: 5px;
+  }
+  
+  .footer-column ul li a {
+    text-decoration: none;
+    color: black;
+  }
