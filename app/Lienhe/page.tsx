@@ -211,6 +211,7 @@ const ContactPage = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
+              placeholder='Vui lòng điền tên của bạn'
               required
             />
           </div>
@@ -222,6 +223,7 @@ const ContactPage = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
+              placeholder='Vui lòng điền email của bạn'
               required
             />
           </div>
