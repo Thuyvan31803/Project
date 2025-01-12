@@ -1,3 +1,7 @@
+.form-group1 {
+  display: inline-block;
+  margin-right: 10px;
+}
 form {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Chia làm 3 cột */
@@ -18,7 +22,6 @@ select {
   padding: 5px;
   width:250px;
 }
-
 
 /*Slide-bar*/
 .flex {
