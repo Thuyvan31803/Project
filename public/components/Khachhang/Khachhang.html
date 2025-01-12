@@ -36,8 +36,15 @@
                 </li>
             </ul>
         </div>
+        <!-- Nội dung -->
         <div class="content" style="padding: 1.75rem; flex: 1; height: 500vh">
-            <h2 style="color:dodgerblue; text-align: center">DANH SÁCH KHÁCH HÀNG</h2>
+            <div style="display: flex; align-items: center; justify-content: space-between">
+                <h2 style="color:dodgerblue; margin: 0">DANH SÁCH KHÁCH HÀNG</h2>
+                <div class="form-group1" style="display: flex; gap: 0.5rem">
+                    <input type="date" id="searchDate">
+                    <button type="button" onclick="searchByDate()">Tìm kiếm</button>
+                </div>
+            </div>
             <form>
                 <div class="form-group">
                     <label for="">Mã KH</label>
@@ -115,6 +122,7 @@
                     <button type="button" onclick="add()">Thêm</button>
                 </div>
               </form>
+              <button type="button" onclick="render()" style="float: right">Hiển thị tất cả</button>
               <table class="table table-striped table-bordered" id="render">
                 <thead>
                   <tr>
@@ -132,8 +140,8 @@
                       <th>Dịch vụ</th>
                       <th>Sự kiện</th>
                       <th>Địa điểm</th>
+                      <th>Tình trạng</th>
                       <th>Chức năng</th>
-                  </tr>
                   </tr>
                 </thead>  
               </table>            
@@ -236,9 +244,11 @@
                <th>Dịch vụ</th>
                <th>Sự kiện</th>
                <th>Địa điểm</th>
+               <th>Tình trạng</th>
                <th>Chức năng</th>
             </tr>`
             for(let i=0; i<data.length; i++){
+                const status = getStatus(data[i].Ngaytochuc);
                 table += `<tr>
                <td>${data[i].MaKH}</td>
                <td>${data[i].HoKH}</td>
@@ -254,6 +264,7 @@
                <td>${data[i].Dichvu}</td>
                <td>${data[i].Sukien}</td>
                <td>${data[i].Diadiem}</td>
+               <td>${status}</td>
                <td>
                 <button onClick="editItem(${data[i].MaKH})">Sửa</button>
                 <button onClick="deleteItem(${data[i].MaKH})">Xóa</button>
@@ -364,7 +375,94 @@
                 }
             }
         }
-        
+        //TÌm kiếm theo ngày tổ chức
+        function searchByDate() {
+            event.preventDefault();
+            const searchDate = document.getElementById("searchDate").value;
+            const searchDateInput = document.getElementById("searchDate");
+            const errorMessage = document.getElementById("error-message");
+
+            if (!searchDate) {
+                // Hiển thị thông báo lỗi
+                searchDateInput.style.borderColor = "red"; // Đổi màu viền sang đỏ
+                if (!errorMessage) {
+                    const errorElement = document.createElement("span");
+                    errorElement.id = "error-message";
+                    errorElement.style.color = "red";
+                    errorElement.innerText = "Vui lòng nhập ngày muốn tìm!";
+                    searchDateInput.parentNode.appendChild(errorElement);
+                }
+                return;
+            }
+            // Nếu nhập ngày, xóa lỗi (nếu có)
+            searchDateInput.style.borderColor = ""; // Xóa màu viền đỏ
+            if (errorMessage) {
+                errorMessage.remove();
+            }
+            // Lấy dữ liệu từ localStorage
+            const data = JSON.parse(localStorage.getItem("khachhangData")) || [];
+            // Lọc dữ liệu dựa trên ngày tổ chức
+            const filteredData = data.filter(item => item.Ngaytochuc === searchDate);
+            // Hiển thị dữ liệu đã lọc
+            let table = `<tr>
+                <th>Mã KH</th>
+                <th>Họ KH</th>
+                <th>Tên</th>
+                <th>Giới tính</th>
+                <th>Địa chỉ</th>
+                <th>Ngày sinh</th>
+                <th>Email</th>
+                <th>Sđt</th>
+                <th>Số lượng Khách</th>
+                <th>Ngân sách</th>
+                <th>Ngày tổ chức</th>
+                <th>Dịch vụ</th>
+                <th>Sự kiện</th>
+                <th>Địa điểm</th>
+                <th>Chức năng</th>
+            </tr>`;
+            if (filteredData.length > 0) {
+               filteredData.forEach(item => {
+                table += `<tr>
+                    <td>${item.MaKH}</td>
+                    <td>${item.HoKH}</td>
+                    <td>${item.Ten}</td>
+                    <td>${item.Gioitinh}</td>
+                    <td>${item.Diachi}</td>
+                    <td>${item.Ngaysinh}</td>
+                    <td>${item.Email}</td>
+                    <td>${item.Sdt}</td>
+                    <td>${item.SoluongKhach}</td>
+                    <td>${item.Ngansach}</td>
+                    <td>${item.Ngaytochuc}</td>
+                    <td>${item.Dichvu}</td>
+                    <td>${item.Sukien}</td>
+                    <td>${item.Diadiem}</td>
+                    <td>
+                        <button onClick="editItem(${item.MaKH})">Sửa</button>
+                        <button onClick="deleteItem(${item.MaKH})">Xóa</button>
+                    </td>
+                </tr>`;
+               });
+            } else {
+                table += `<tr><td colspan="15" style="text-align: center;">Không tìm thấy kết quả</td></tr>`;
+            }
+            document.getElementById("render").innerHTML = table;
+        }
+        // Hàm để tính toán tình trạng của sự kiện
+        function getStatus(ngayToChuc) {
+            const today = new Date();
+            const eventDate = new Date(ngayToChuc);
+    
+            if (eventDate.toDateString() === today.toDateString()) {
+               return "Đang tổ chức";
+            } else if (eventDate < today) {
+               return "Đã tổ chức";
+            } else {
+               return "Sắp tổ chức";
+            }
+        }
+
         //Slide-bar
         const sidebar = document.getElementById('sidebar');
         const toggleBtn = document.getElementById('toggle-btn');
